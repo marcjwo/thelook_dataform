@@ -8,9 +8,10 @@
     "resources_dataset": "resources",
     "raw_database": "bigquery-public-data",
     "raw_dataset": "thelook_ecommerce",
-    "intermediate_dataset": "thelook_intermediate",
-    "output_dataset_pre": "thelook_output_previous",
-    "output_dataset_post": "thelook_output_alternative"
+    "orders_intermediate_dataset": "orders_intermediate",
+    "orders_output_dataset_pre": "orders_output_previous",
+    "orders_output_dataset_post": "orders_output",
+    "users_intermediate_dataset":"users_intermediate",
+    "users_output_dataset": "users_output"
   }
 }
-    

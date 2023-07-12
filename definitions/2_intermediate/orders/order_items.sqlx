@@ -1,7 +1,7 @@
 config {
     type: "view",
     name: "order_items_intermediate",
-    schema: dataform.projectConfig.vars.intermediate_dataset,
+    schema: dataform.projectConfig.vars.orders_intermediate_dataset,
     description: "Order Items Intermediate",
     tags: ["intermediate"],
 

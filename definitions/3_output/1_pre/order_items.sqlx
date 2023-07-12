@@ -1,7 +1,7 @@
 config {
     type: "table",
     name: "order_items_output_pre",
-    schema: dataform.projectConfig.vars.output_dataset_pre,
+    schema: dataform.projectConfig.vars.orders_output_dataset_pre,
     description: "Order Items Output table",
     tags: ["output"]
 }
