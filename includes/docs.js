@@ -1,7 +1,85 @@
-const order_id ="Order ID"
+const order_id ="Order ID" ;
+const user_id = "User ID" ;
+const product_id = "Product ID" ;
+const status = "Shipping Status" ;
+const created_at = "Timestamp of record creation" ;
+const shipped_at = "Timestamp of shipping" ;
+const delivered_at = "Timestamp of delivery" ;
+const returned_at = "Timestamp of return" ;
+const sale_price = "Sale price of item in USD" ;
+const first_name = "User first name" ;
+const last_name = "User last name" ;
+const email = "Email address" ;
+const age = "User age" ;
+const gender = "User gender" ;
+const state = "State" ;
+const street_address = "Street address" ;
+const postal_code = "Zip code" ;
+const city = "City" ;
+const country = "Country" ;
+const user_latitude = "User latitude" ;
+const user_longitude = "User longitude" ;
+const traffic_source = "User traffic source" ;
+const user_created_at = "Timestampe the user was created" ;
+const lifetime_orders = "Number of lifetime orders" ;
+const lifetime_revenue = "Amount of lifetime user revenue in USD" ;
+const first_order = "Date of first user order" ;
+const latest_order = "Date of last user order" ;
+const number_of_distinct_months_with_orders = "Number of distinct months with an order" ;
+const product_brand = "Product Brand" ;
+const product_category = "Product Category" ;
+const product_name = "Name of the product" ;
+const product_department = "Product department" ;
+const distribtution_center_name = "Name of distribtution center" ;
+const distribution_center_latitude = "Lat of distribution center" ;
+const distribution_center_longitude = "Lon of distribution center" ;
+const order_sequence_number = "Sequential number of order by user" ;
+const is_first_purchase = "Is order first purchase in BOOL" ;
+const order_amount = "Total amount of order in USD" ;
+const order_cost = "Total cost of order in USD" ;
+const order_margin = "Total margin of order in USD" ;
 
 module.exports = {
-    order_id
+    order_id,
+    user_id,
+    product_id ,
+    status,
+    created_at,
+    shipped_at,
+    delivered_at,
+    returned_at,
+    sale_price,
+    first_name,
+    last_name,
+    email,
+    age,
+    gender,
+    state,
+    street_address,
+    postal_code,
+    city,
+    country,
+    user_latitude,
+    user_longitude,
+    traffic_source,
+    user_created_at,
+    lifetime_orders,
+    lifetime_revenue,
+    first_order,
+    latest_order,
+    number_of_distinct_months_with_orders,
+    product_brand,
+    product_category,
+    product_name,
+    product_department,
+    distribtution_center_name,
+    distribution_center_latitude,
+    distribution_center_longitude,
+    order_sequence_number,
+    is_first_purchase,
+    order_amount,
+    order_cost,
+    order_margin,
 }
 
 

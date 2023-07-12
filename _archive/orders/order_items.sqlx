@@ -1,0 +1,21 @@
+config {
+    type: "view",
+    name: "order_items_intermediate_table",
+    schema: dataform.projectConfig.vars.intermediate_dataset,
+    description: "Intermediate version of order items",
+    tags: ["intermediate"]
+}
+
+SELECT 
+CAST(id as INT) as id,
+CAST(order_id as INT) as order_id,
+CAST(user_id as INT) as user_id,
+CAST(product_id as INT) as product_id,
+CAST(inventory_item_id as INT) as inventory_item_id,
+CAST(status as STRING) as status,
+CAST(created_at as DATETIME) as created_at,
+CAST(shipped_at as DATETIME) as shipped_at,
+CAST(delivered_at as DATETIME) as delivered_at,
+CAST(returned_at as DATETIME) as returned_at,
+CAST(sale_price as NUMERIC) as sale_price,
+FROM ${ref("order_items")}

@@ -1,0 +1,17 @@
+config {
+    type: "table",
+    name: "order_items_output_old_school",
+    schema: dataform.projectConfig.vars.output_dataset,
+    description: "An Order Items Output table, the 'old' way",
+    tags: ["output"]
+}
+
+SELECT
+oi.*,
+o.items_in_order,
+o.order_amount,
+o.order_cost,
+o.order_gross_margin,
+FROM ${ref("order_items")} oi
+JOIN ${ref("order_facts_intermediate_table")} o
+ON oi.order_id  = o.order_id

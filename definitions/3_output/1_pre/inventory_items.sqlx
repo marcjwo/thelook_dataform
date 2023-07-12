@@ -1,0 +1,11 @@
+config {
+    type: "table",
+    name: "inventory_items_output_pre",
+    schema: dataform.projectConfig.vars.output_dataset_pre,
+    description: "Inventory Items Output table",
+    tags: ["output"]
+}
+
+SELECT
+*
+FROM ${ref("inventory_items")}

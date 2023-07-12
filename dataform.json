@@ -1,8 +1,16 @@
 {
-  "defaultSchema": "dataform",
-  "assertionSchema": "dataform_assertions",
   "warehouse": "bigquery",
   "defaultDatabase": "semantics-390012",
-  "defaultLocation": "US"
+  "defaultSchema": "thelook_dataform",
+  "assertionSchema": "thelook_dataform_assertions",  
+  "defaultLocation": "US",
+  "vars": {
+    "resources_dataset": "resources",
+    "raw_database": "bigquery-public-data",
+    "raw_dataset": "thelook_ecommerce",
+    "intermediate_dataset": "thelook_intermediate",
+    "output_dataset_pre": "thelook_output_previous",
+    "output_dataset_post": "thelook_output_alternative"
+  }
 }
     

@@ -8,8 +8,9 @@
   "orders"
 ].forEach((name) =>
   declare({
-    database: "bigquery-public-data", 
-    schema: "thelook_ecommerce",
+    database: dataform.projectConfig.vars.raw_database, 
+    schema: dataform.projectConfig.vars.raw_dataset,
     name,
+    tags: ["source"]
   })
 );

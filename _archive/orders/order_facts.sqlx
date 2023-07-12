@@ -1,0 +1,40 @@
+config {
+    type: "view",
+    name: "order_facts_intermediate_table",
+    schema: dataform.projectConfig.vars.intermediate_dataset,
+    description: "An Orders Fact Table for further consumption",
+    columns: {
+        order_id: "Order ID",
+        items_in_order: "Items in order",
+        order_amount: "Amount per Order in USD",
+        order_cost: "Cost per Order in USD",
+        order_gross_margin: "Gross margin per Order in USD"
+    },
+    tags: ["intermediate"]
+}
+
+SELECT
+    o.order_id,
+    o.user_id,
+    o.created_at,
+    count(o.id) as items_in_order,
+    sum(o.sale_price) as order_amount,
+    sum(i.cost) as order_cost,
+    (sum(o.sale_price)-sum(i.cost)) as order_gross_margin,
+    RANK() OVER (PARTITION BY o.user_id ORDER BY o.created_at) as order_sequence_number,
+    CASE WHEN RANK() OVER (PARTITION BY o.user_id ORDER BY o.created_at) = 1 THEN true ELSE false END as is_first_purchase,
+FROM ${ref("order_items")} o
+JOIN ${ref("inventory_items")} i
+ON i.id = o.inventory_item_id
+GROUP BY 1,2,3
+
+
+
+-- post_operations {
+--     SELECT `semantics-390012.dataform.tagging`(
+--         "${self()}",
+--         "marc@google.com",
+--         "intermediate",
+--         "orders"
+--         );
+-- }
