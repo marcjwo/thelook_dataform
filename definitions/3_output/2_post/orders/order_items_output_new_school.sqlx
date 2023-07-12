@@ -64,7 +64,7 @@ WITH user_order_facts as (
         , CAST(MIN(created_at)  AS TIMESTAMP) AS first_order
         , CAST(MAX(created_at)  AS TIMESTAMP)  AS latest_order
         , COUNT(DISTINCT FORMAT_TIMESTAMP('%Y%m', created_at))  AS number_of_distinct_months_with_orders
-      FROM ${ref("order_items")}
+      FROM ${ref("order_items_intermediate")}
       GROUP BY 1
 )
 
@@ -117,18 +117,18 @@ SUM(oi.sale_price) OVER (PARTITION BY oi.order_id) as order_amount,
 SUM(ii.cost) OVER (PARTITION BY oi.order_id) as order_cost,
 (SUM(sale_price) OVER (PARTITION BY oi.order_id) - SUM(ii.cost) OVER (PARTITION BY oi.order_id)) as order_margin
 FROM ${ref("order_items_intermediate")} oi
-JOIN ${ref("inventory_items")} ii ON oi.inventory_item_id = ii.id
-JOIN ${ref("users")} u ON oi.user_id = u.id
+JOIN ${ref("inventory_items_source")} ii ON oi.inventory_item_id = ii.id
+JOIN ${ref("users_source")} u ON oi.user_id = u.id
 JOIN user_order_facts uof ON oi.user_id = uof.user_id
-JOIN ${ref("products")} p ON ii.product_id = p.id
-JOIN ${ref("distribution_centers")} dc ON p.distribution_center_id = dc.id
+JOIN ${ref("products_source")} p ON ii.product_id = p.id
+JOIN ${ref("distribution_centers_source")} dc ON p.distribution_center_id = dc.id
 
 
 post_operations {
-    SELECT ${dataform.projectConfig.vars.resources_dataset}.table_tagging(
+    SELECT ${dataform.projectConfig.vars.resources_dataset}.remote_table_tagging(
         "${self()}",
         "marc@google.com",
-        "ANALYTICAL",
-        "marketing"
+        "${variables.output_data_level}",
+        "${variables.orders_data_domain}"
         );
 }

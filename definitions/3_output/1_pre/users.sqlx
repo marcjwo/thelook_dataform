@@ -8,4 +8,4 @@ config {
 
 SELECT
 *
-FROM ${ref("users")}
+FROM ${ref("users_source")}

@@ -1,0 +1,27 @@
+-- config {
+-- name: "orders_source",
+-- type: "operations",
+-- schema: dataform.projectConfig.vars.orders_source_dataset,
+-- hasOutput: true,
+-- tags: ["source"]
+-- }
+
+-- -- Use LOAD DATA DDL to ingest external data from Datafrom
+-- -- https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#load_data_statement
+
+
+
+-- LOAD DATA OVERWRITE ${self()}
+-- FROM FILES (
+--   format = 'CSV',
+--   skip_leading_rows=1,
+--   field_delimiter = ',',
+--   uris = ['${dataform.projectConfig.vars.gcs_data_bucket}orders.csv']);
+
+-- ALTER TABLE ${self()}
+-- SET OPTIONS (
+--   labels = [
+--    ('data_level', '${variables.source_data_level}'), 
+--    ('data_domain', 'orders')
+--    ]
+-- );

@@ -7,6 +7,7 @@ config {
 
     bigquery: {
         labels: {
+            data_domain: "orders",
             data_level: variables.intermediate_data_level,
         }
     },
@@ -18,4 +19,4 @@ config {
 
 SELECT
 *
-FROM ${ref("order_items")}
+FROM ${ref("order_items_source")}

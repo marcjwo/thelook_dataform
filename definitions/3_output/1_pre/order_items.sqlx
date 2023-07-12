@@ -8,4 +8,4 @@ config {
 
 SELECT
 *
-FROM ${ref("order_items")}
+FROM ${ref("order_items_source")}

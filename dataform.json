@@ -1,13 +1,15 @@
 {
   "warehouse": "bigquery",
-  "defaultDatabase": "semantics-390012",
+  "defaultDatabase": "blaa-bi-in-a-box",
   "defaultSchema": "thelook_dataform",
   "assertionSchema": "thelook_dataform_assertions",  
-  "defaultLocation": "US",
+  "defaultLocation": "europe-west3",
   "vars": {
+    "gcs_data_bucket": "gs://blaa-bi-in-a-box-data_bucket/" ,
     "resources_dataset": "resources",
     "raw_database": "bigquery-public-data",
     "raw_dataset": "thelook_ecommerce",
+    "orders_source_dataset": "orders_source",
     "orders_intermediate_dataset": "orders_intermediate",
     "orders_output_dataset_pre": "orders_output_previous",
     "orders_output_dataset_post": "orders_output",

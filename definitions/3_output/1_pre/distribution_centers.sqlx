@@ -8,4 +8,4 @@ config {
 
 SELECT
 *
-FROM ${ref("distribution_centers")}
+FROM ${ref("distribution_centers_source")}
