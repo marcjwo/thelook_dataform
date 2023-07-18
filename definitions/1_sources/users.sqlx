@@ -13,10 +13,9 @@ tags: ["source"]
 
 LOAD DATA OVERWRITE ${self()}
 FROM FILES (
-  format = 'CSV',
-  skip_leading_rows=1,
-  field_delimiter = ',',
-  uris = ['${dataform.projectConfig.vars.gcs_data_bucket}users.csv']);
+  format = 'csv',
+  field_delimiter = ';',
+  uris = ['${dataform.projectConfig.vars.gcs_data_bucket}/users/*.csv']);
 
 ALTER TABLE ${self()}
 SET OPTIONS (

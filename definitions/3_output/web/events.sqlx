@@ -1,0 +1,11 @@
+config {
+    type: "table",
+    name: "events_output",
+    schema: dataform.projectConfig.vars.web_output_dataset,
+    description: "Events Output table",
+    tags: ["output"]
+}
+
+SELECT
+*
+FROM ${ref("events_source")}

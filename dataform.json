@@ -5,15 +5,15 @@
   "assertionSchema": "thelook_dataform_assertions",  
   "defaultLocation": "europe-west3",
   "vars": {
-    "gcs_data_bucket": "gs://blaa-bi-in-a-box-data_bucket/" ,
+    "gcs_data_bucket": "gs://blaa-bi-in-a-box-data_bucket" ,
     "resources_dataset": "resources",
     "raw_database": "bigquery-public-data",
     "raw_dataset": "thelook_ecommerce",
     "orders_source_dataset": "orders_source",
     "orders_intermediate_dataset": "orders_intermediate",
-    "orders_output_dataset_pre": "orders_output_previous",
-    "orders_output_dataset_post": "orders_output",
-    "users_intermediate_dataset":"users_intermediate",
-    "users_output_dataset": "users_output"
+    "orders_output_dataset": "orders_output",
+    "web_source_dataset": "web_source",
+    "web_intermediate_dataset":"web_intermediate",
+    "web_output_dataset": "web_output"
   }
 }

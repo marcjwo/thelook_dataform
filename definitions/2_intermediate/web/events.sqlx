@@ -1,0 +1,26 @@
+config {
+    type: "view",
+    name: "events_intermediate",
+    schema: dataform.projectConfig.vars.web_intermediate_dataset,
+    description: "Events Intermediate",
+    tags: ["intermediate"],
+
+    bigquery: {
+        labels: {
+            data_domain: "web",
+            data_level: variables.intermediate_data_level,
+        }
+    },
+}
+
+SELECT
+*,
+CASE WHEN event_type = 'product' THEN CAST(SPLIT(uri, '/')[OFFSET(ARRAY_LENGTH(SPLIT(uri, '/'))-1)] AS INT64) END as viewed_product_id,
+CASE
+  WHEN event_type IN ('login', 'home') THEN '(1) Land'
+  WHEN event_type IN ('category', 'brand') THEN '(2) Browse Inventory'
+  WHEN event_type = 'product' THEN '(3) View Product'
+  WHEN event_type = 'cart' THEN '(4) Add Item to Cart'
+  WHEN event_type = 'purchase' THEN '(5) Purchase'
+END AS funnel_step
+FROM ${ref("events_source")}

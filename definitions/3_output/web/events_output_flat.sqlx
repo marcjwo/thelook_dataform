@@ -1,0 +1,111 @@
+config {
+    type: "table",
+    name: "events_output_flat",
+    schema: dataform.projectConfig.vars.web_output_dataset,
+    description: "Events output table, alternative",
+    tags: ["output"],
+
+    bigquery: {
+        labels: {
+            data_level: variables.output_data_level,
+            data_domain: "web"
+        }
+    },
+}
+
+WITH user_order_facts as (
+    SELECT
+        user_id
+        , COUNT(DISTINCT order_id) AS lifetime_orders
+        , SUM(sale_price) AS lifetime_revenue
+        , CAST(MIN(created_at)  AS TIMESTAMP) AS first_order
+        , CAST(MAX(created_at)  AS TIMESTAMP)  AS latest_order
+        , COUNT(DISTINCT FORMAT_TIMESTAMP('%Y%m', created_at))  AS number_of_distinct_months_with_orders
+      FROM ${ref("order_items_intermediate")}
+      GROUP BY 1
+)
+
+SELECT
+e.id,
+e.user_id as events_user_id,
+e.sequence_number,
+e.created_at,
+e.ip_address,
+e.city as event_city,
+e.state as event_state,
+e.zip as event_zip,
+e.browser as event_browser,
+e.traffic_source as event_traffic_source,
+e.uri,
+e.event_type,
+e.viewed_product_id,
+e.funnel_step,
+e.longitude as event_longitude,
+e.latitude as event_latitude,
+
+s.session_id,
+s.session_start,
+s.session_end,
+s.number_of_events_in_session,
+s.browse_events,
+s.product_events,
+s.cart_events,
+s.purchase_events,
+s.session_user_id,
+-- s.landing_event_id,
+-- s.bounce_event_id,
+
+b.id as bounce_event_id,
+b.created_at as bounce_created_at,
+b.event_type as bounce_event_type,
+b.uri as bounce_uri ,
+b.user_id as bounce_user_id,
+b.funnel_step as bounce_funnel_step,
+
+l.id as landing_event_id,
+l.created_at as landing_created_at,
+l.event_type as landing_event_type,
+l.uri as landing_uri ,
+l.user_id as landing_user_id,
+l.funnel_step as landing_funnel_step,
+
+p.id as product_id,
+p.category as product_category,
+p.name as product_name,
+p.brand as product_brand,
+p.department as product_department,
+p.retail_price as product_retail_price,
+p.sku as product_sku,
+p.distribution_center_id as product_distribution_center_id,
+
+u.first_name,
+u.last_name,
+u.email,
+u.age,
+u.gender,
+u.state,
+-- u.street_address,
+u.id as user_id,
+u.zip,
+u.city,
+u.country,
+u.latitude user_latitude,
+u.longitude as user_longitude,
+u.traffic_source as user_traffic_source,
+u.created_at as user_created_at,
+
+uof.lifetime_orders,
+uof.lifetime_revenue,
+uof.first_order,
+uof.latest_order,
+uof.number_of_distinct_months_with_orders,
+
+FROM ${ref("events_intermediate")} e
+LEFT JOIN ${ref("sessions_intermediate")} s ON s.session_id = e.session_id
+LEFT JOIN ${ref("events_intermediate")} b ON s.landing_event_id = b.id
+LEFT JOIN ${ref("events_intermediate")} l ON s.bounce_event_id = l.id
+LEFT JOIN ${ref("products_source")} p ON e.viewed_product_id = p.id
+LEFT JOIN ${ref("users_source")} u ON e.user_id = u.id
+LEFT JOIN user_order_facts uof ON u.id = uof.user_id
+
+-- WHERE s.session_id = '4494a37b-f4c9-46d9-8a9f-2ccd3d451bb1'
